@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f8fc"><meta name="description" content="PaletteX — your personal color exploration studio.">
+<title>PaletteX — Color Studio</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/palettex-icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#"><span class="brand-symbol"><i></i><i></i><i></i></span><span>Palette<span>X</span></span></a>
+    <div class="side-label">WORKSPACE</div>
+    <nav class="side-nav">
+      <button class="nav-link active" data-page="studio"><span class="nav-icon">⌂</span><span><b>Dashboard</b><small>Your color studio</small></span></button>
+      <button class="nav-link" data-page="explore"><span class="nav-icon">▦</span><span><b>Explore</b><small>Discover palettes</small></span></button>
+      <button class="nav-link" data-page="saved"><span class="nav-icon">▣</span><span><b>My collections</b><small>Your saved colors</small></span><em id="navSavedCount">0</em></button>
+      <button class="nav-link" data-page="trending"><span class="nav-icon">♨</span><span><b>Trending</b><small>Popular color moods</small></span></button>
+    </nav>
+    <div class="side-label second-label">PREFERENCES</div>
+    <nav class="side-nav">
+      <button class="nav-link" data-page="settings"><span class="nav-icon">⚙</span><span><b>Settings</b><small>Make it yours</small></span></button>
+    </nav>
+    <div class="sidebar-promo"><div class="promo-art"><span></span><span></span><span></span></div><b>Color outside<br>the lines.</b><p>Fresh inspiration for your next big idea.</p><button id="promoGenerate">Explore colors <span>↗</span></button></div>
+    <div class="side-profile"><div class="profile-avatar">PX</div><div><b>Color Creator</b><small>Personal workspace</small></div><span class="profile-dots">•••</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+      <div class="breadcrumbs">Workspace <span>/</span> <b id="crumb">Dashboard</b></div>
+      <div class="top-actions"><button class="round-btn" id="themeToggle" aria-label="Toggle theme">☼</button><button class="profile-mini">PX</button></div>
+    </header>
+
+    <section class="page active-page" id="studioPage">
+      <div class="welcome-row"><div><div class="eyebrow"><span></span> YOUR CREATIVE COLOR STUDIO</div><h1>Make room for <span>color.</span></h1><p class="subhead">A little inspiration can change everything. Create, explore and collect colors that feel like you.</p></div><button class="primary-btn" id="generateBtn">✦ Generate palette</button></div>
+      <div class="bento">
+        <article class="bento-card palette-feature">
+          <div class="card-head"><div><div class="overline">YOUR CURRENT PALETTE</div><h2>Today's colors</h2></div><div class="head-actions"><button class="tiny-btn" id="lockAllBtn">◇ Lock all</button><button class="tiny-btn" id="saveBtn">♡ Save</button></div></div>
+          <div class="palette-board" id="paletteBoard"></div>
+          <div class="palette-bottom"><span>Tap any color to copy its code</span><button id="nextPalette">Generate another ↗</button></div>
+        </article>
+        <article class="bento-card explore-feature">
+          <div class="explore-glow"></div><div class="overline">NEED A STARTING POINT?</div><div class="explore-icon">▦</div><h2>Explore new<br>combinations.</h2><p>Find a color direction for your next creative project.</p><button id="exploreBtn">Explore palettes <span>→</span></button>
+        </article>
+        <article class="bento-card harmony-card">
+          <div class="small-card-icon purple">◈</div><div><div class="overline">COLOR HARMONY</div><h3>Set the mood</h3><p>Choose how your colors work together.</p></div>
+          <select id="harmonySelect"><option value="random">Surprise me</option><option value="complementary">Complementary</option><option value="analogous">Analogous</option><option value="triadic">Triadic</option><option value="monochrome">Monochromatic</option></select>
+        </article>
+        <article class="bento-card format-card">
+          <div class="small-card-icon blue">⌘</div><div><div class="overline">COLOR FORMAT</div><h3>Developer friendly</h3><p>Copy colors in your preferred format.</p></div>
+          <select id="formatSelect"><option value="hex">HEX values</option><option value="rgb">RGB values</option><option value="hsl">HSL values</option></select>
+        </article>
+        <article class="bento-card export-card">
+          <div class="export-top"><div class="small-card-icon pink">⇧</div><div class="overline">READY TO USE</div></div><h3>Take your colors<br>to your next project.</h3><p>Export a clean CSS variables file in one click.</p><button class="dark-btn" id="exportBtn">Export CSS <span>↗</span></button>
+        </article>
+        <article class="bento-card collection-card">
+          <div class="collection-top"><div><div class="overline">YOUR LIBRARY</div><h3>Saved palettes</h3></div><span class="collection-count" id="savedCount">0</span></div>
+          <div class="mini-saved" id="miniSaved"></div><button class="link-btn" data-goto="saved">View collection <span>→</span></button>
+        </article>
+      </div>
+      <div class="bottom-tip"><span class="tip-star">✦</span><div><b>Pro tip</b><p>Lock the colors you love, then generate again. Your locked shades will stay while the rest change.</p></div></div>
+    </section>
+
+    <section class="page" id="explorePage"><div class="page-title"><div class="eyebrow">FIND YOUR NEXT FAVORITE</div><h1>Explore <span>colors.</span></h1><p class="subhead">Try a mood, discover a combination, and make it your own.</p></div><div class="explore-grid" id="exploreGrid"></div></section>
+    <section class="page" id="savedPage"><div class="page-title"><div class="eyebrow">YOUR PERSONAL LIBRARY</div><h1>My <span>collections.</span></h1><p class="subhead">Every color combination you've decided to keep.</p></div><div class="saved-grid" id="savedGrid"></div></section>
+    <section class="page" id="trendingPage"><div class="page-title"><div class="eyebrow">COLOR INSPIRATION</div><h1>Trending <span>moods.</span></h1><p class="subhead">A few ready-made palettes to spark an idea.</p></div><div class="explore-grid" id="trendingGrid"></div></section>
+    <section class="page" id="settingsPage"><div class="page-title"><div class="eyebrow">MAKE PALETTEX YOURS</div><h1>Your <span>settings.</span></h1><p class="subhead">A few simple preferences for your workspace.</p></div><div class="settings-panel"><div><b>Appearance</b><p>Switch between light and dark workspace themes.</p></div><button class="outline-btn" id="settingsTheme">Toggle theme</button><div class="settings-divider"></div><div><b>Local data</b><p>Your saved palettes stay on this device in your browser storage.</p></div><button class="outline-btn" id="clearData">Clear saved palettes</button></div></section>
+    <footer><a class="brand footer-brand" href="#"><span class="brand-symbol"><i></i><i></i><i></i></span><span>Palette<span>X</span></span></a><span>Made for curious creators. <b>© 2026 PaletteX</b></span></footer>
+  </main>
+</div>
+<div class="mobile-overlay" id="overlay"></div><div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body></html>
